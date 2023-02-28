@@ -1,19 +1,16 @@
 const router = require("express").Router();
-const tablesController = require("./tables.controller");
 const methodNotAllowed = require("../errors/methodNotAllowed");
+const controller = require("./tables.controller");
+const seatRouter = require("../seat/seat.router");
 
-router.route("/")
-    .get(tablesController.list)
-    .post(tablesController.create)
-    .all(methodNotAllowed);
+router.use("/:table_id/seat", seatRouter);
 
-router.route("/:table_id")
-    .get(tablesController.readTable)
-    .all(methodNotAllowed);
+router
+  .route("/")
+  .get(controller.list)
+  .post(controller.create)
+  .all(methodNotAllowed);
 
-router.route("/:table_id/seat")
-    .put(tablesController.seatTable)
-    .delete(tablesController.unseatTable)
-    .all(methodNotAllowed);
+router.route("/:table_id/finish").put(controller.finish).all(methodNotAllowed);
 
 module.exports = router;

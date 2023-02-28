@@ -1,6 +1,5 @@
 const path = require("path");
 
-
 require("dotenv").config({ path: path.join(__dirname, "..", ".env") });
 
 const express = require("express");
@@ -13,9 +12,8 @@ const tablesRouter = require("./tables/tables.router");
 
 const app = express();
 
-
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 
 app.use("/reservations", reservationsRouter);
 app.use("/tables", tablesRouter);
