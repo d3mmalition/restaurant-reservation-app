@@ -1,17 +1,17 @@
-// exports.up = function (knex) {
-//     return knex.schema.createTable("reservations", (table) => {
-//       table.increments("reservation_id").primary();
-//       table.string("first_name").notNullable();
-//       table.string("last_name").notNullable();
-//       table.string("mobile_number").notNullable();
-//       table.date("reservation_date").notNullable();
-//       table.time("reservation_time").notNullable();
-//       table.integer("people").notNullable();
-//       table.timestamps(true, true);
-//     });
-//   };
+exports.up = function (knex) {
+    return knex.schema.createTable("tables", (table) => {
+      table.increments("table_id").primary();
+      table.string("table_name");
+      table.string("capacity");
+      table.integer("reservation_id").unsigned();
+      table
+        .foreign("reservation_id")
+        .references("reservation_id")
+        .inTable("reservations");
+      table.timestamps(true, true);
+    });
+  };
   
-//   exports.down = function (knex) {
-//     return knex.schema.dropTableIfExists("reservations");
-//   };
-  
+  exports.down = function (knex) {
+    return knex.schema.dropTable("tables");
+  };
