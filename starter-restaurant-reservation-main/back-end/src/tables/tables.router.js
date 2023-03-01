@@ -11,6 +11,4 @@ router
   .post(controller.create)
   .all(methodNotAllowed);
 
-router.route("/:table_id/finish").put(controller.finish).all(methodNotAllowed);
-
 module.exports = router;
