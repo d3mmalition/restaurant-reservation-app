@@ -56,7 +56,7 @@ function TablesList() {
             return (
                 <div key={table.table_id} className="container">
                     <div className="border rounded my-3">
-                        <div className="bg-info text-white p-1">
+                        <div className="bg-dark text-white p-1">
                             <h5>Table: {table.table_name}</h5>
                         </div>
                         <div className="col">

@@ -29,7 +29,7 @@ function ReservationCard({ reservation }) {
     return (
         <div className="container">
             <div className="border rounded my-3">
-                <div className="bg-info text-white p-2">
+                <div className="bg-sucess text-black p-2">
                     <h5>Reservation For {reservation.first_name} {reservation.last_name}</h5>
                     <div 
                     className="badge bg-secondary"

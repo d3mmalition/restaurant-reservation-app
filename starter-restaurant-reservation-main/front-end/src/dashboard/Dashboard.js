@@ -47,13 +47,13 @@ function Dashboard({ date }) {
         <h1 className="center-align">Dashboard</h1>
           <h4 className="bg-white mb-2">Reservations for {displayDate}</h4>
         <div>
-          <button className="btn btn-outline-info" onClick={() => history.push(`/dashboard?date=${previous(date)}`)}>
+          <button className="btn btn-outline-dark" onClick={() => history.push(`/dashboard?date=${previous(date)}`)}>
             Previous Day
           </button>
-          <button className="btn btn-outline-info mx-2" onClick={() => history.push(`/dashboard/?date=${today()}`)}>
+          <button className="btn btn-outline-dark mx-2" onClick={() => history.push(`/dashboard/?date=${today()}`)}>
             Today
           </button>
-          <button className="btn btn-outline-info" onClick={() => history.push(`/dashboard/?date=${next(date)}`)}>
+          <button className="btn btn-outline-dark" onClick={() => history.push(`/dashboard/?date=${next(date)}`)}>
             Next Day
           </button>
         </div>
