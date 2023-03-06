@@ -90,8 +90,7 @@ function Dashboard({ date }) {
       </React.Fragment>
     );
   }
-  // PON stands for previous or next
-  // second param takes in date to parse to link
+
   function clickHandler(PON, d) {
     if (!d) {
       return;
