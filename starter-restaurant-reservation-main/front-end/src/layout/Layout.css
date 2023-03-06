@@ -1,4 +1,97 @@
-.side-bar {
-  background-color: #393a44;
-  min-width: 200px;
+.bar {
+  background-color: black;
+  position:fixed;
+  z-index:999;
+  bottom:0;
+  width:100%;
+  margin-bottom: 20px
 }
+
+.dashboard-date-btn {
+  background-color: #c2c2c2;
+  flex-grow:4;
+  color: #fff;
+  margin-right:10px;
+}
+
+.bottom-button {
+  margin-bottom: 10px;
+  background-color:#c2c2c2;
+  width:100%;
+}
+
+.dashboard-date-select {
+  display:flex;
+  align-self:center;
+}
+
+.home-btn {
+  background:black;
+  color:white;
+  width:100%;
+  align-self:center;
+  margin-top: 20px;
+  margin-bottom:20px;
+}
+.routes {
+  width:100%;
+}
+
+.search-div {
+  margin:20px;
+}
+
+title {
+  display:flex;
+  justify-content:center;
+}
+
+
+
+@media (min-width: 768px) {
+
+  title {
+    background-color:white;
+    display:flex;
+    justify-content:center;
+    color:black;
+    margin: 20px;
+    
+  }
+
+  .dashboard-buttons {
+    display:flex;
+    justify-content:center;
+    flex-direction:column;
+  }
+  
+
+  .seat-form {
+    display:flex;
+    flex-direction:column;
+  }
+  
+  .seat-form > button {
+    width:95%;
+    align-self:center;
+  }
+
+  .bar{
+    position:relative;
+  }
+
+  .dashboard-date-btn {
+    background-color: #000;
+    flex-grow:0;
+    margin-right:10px;
+    margin-bottom:10px;
+    width:190px;
+    color: #fff;
+  }
+  .home-btn {
+    width:auto;
+  }
+}
+
+
+
