@@ -8,6 +8,7 @@ exports.up = function (knex) {
     table.time("reservation_time");
     table.integer("people").defaultTo(1);
     table.timestamps(true, true);
+    table.string("status"); // added missing column
   });
 };
 
