@@ -108,7 +108,7 @@ function Dashboard({ date }) {
       {dateDisplay()}
       <div className="mb-3">
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <h4 className="mb-0">Reservations for today</h4>
+          <h2 className="mb-0">Reservations for today</h2>
         </div>
       </div>
       <ErrorAlert error={error} />

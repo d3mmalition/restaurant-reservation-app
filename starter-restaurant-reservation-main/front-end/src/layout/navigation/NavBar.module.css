@@ -10,6 +10,9 @@
 .NavBar {
   display:flex;
   flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  height: 80px;
 }
 
 .NavBar .Navigation ul{
@@ -24,10 +27,11 @@
 
  .menu_text {
   color:white;
+  font-size: 1.5rem;
  }
  
  .menu_icons {
-  color:white
+  color:black
  }
 
 
