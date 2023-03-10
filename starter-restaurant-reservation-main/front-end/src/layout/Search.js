@@ -11,22 +11,26 @@ function Search() {
   const [reservations, setReservations] = useState([]);
   const [error, setError] = useState("");
 
-  function submitHandler(event) {
+  async function submitHandler(event) {
     event.preventDefault();
     setReservations([]);
     setError("");
-    const abortController = new AbortController();
-    searchReservationsWithPhone(number, abortController.signal)
-      .then(setReservations)
-      .then(() => {
-        if (reservations.length === 0) {
-          setError({ message: "No reservations found" });
-        }
-      })
-      .catch(setError);
-
-    return () => abortController.abort();
+  
+    try {
+      const abortController = new AbortController();
+      const reservations = await searchReservationsWithPhone(number, abortController.signal);
+      setReservations(reservations);
+  
+      if (reservations.length === 0) {
+        setError({ message: "No reservations found" });
+      }
+  
+      return () => abortController.abort();
+    } catch (error) {
+      setError(error.message);
+    }
   }
+  
 
   return (
     <div className="search-div">
@@ -36,7 +40,7 @@ function Search() {
       <form onSubmit={submitHandler} className="seat-form">
         <input
           name="mobile_number"
-          placeholder="Enter a customer's phone number"
+          placeholder="Enter the customer's phone number"
           className="form-control"
           maxLength="12"
           value={number}
@@ -50,7 +54,11 @@ function Search() {
         </button>
       </form>
       <ErrorAlert error={error} />
-      {reservations && <ListReservations data={reservations} show={true} />}
+      {reservations.length === 0 ? (
+  <p>No reservations found with this phone number.</p>
+) : (
+  <ListReservations data={reservations} show={true} />
+)}
     </div>
   );
 }

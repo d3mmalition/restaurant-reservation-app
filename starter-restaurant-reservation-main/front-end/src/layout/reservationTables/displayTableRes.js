@@ -25,18 +25,23 @@ function DisplayTableReservations({ refreshDashboard }) {
   function handleTableFinish(event, reservationID) {
     const tableID = event.target.value;
     const abortController = new AbortController();
-
+  
     if (window.confirm("Is this table ready to seat new guests?") === true) {
       deleteTableReservation(tableID, abortController.signal)
         .then(loadTableReservations)
-        .then(() => refreshDashboard())
+        .then(() => {
+          if (refreshDashboard) {
+            refreshDashboard();
+          }
+        })
         .catch(setError);
-
+  
       return () => abortController.abort();
     } else {
       return;
     }
   }
+  
 
   const list = () => {
     if (tables) {
