@@ -40,9 +40,7 @@ function Dashboard({ date }) {
   
   return (
     <main>
-      <div>
-        <ErrorAlert error={reservationsError} />
-      </div>
+
       <div className="container-fluid col-12 text-center">
         <h1 className="center-align">Dashboard</h1>
           <h4 className="bg-white mb-2">Reservations for {displayDate}</h4>
@@ -57,19 +55,24 @@ function Dashboard({ date }) {
             Next Day
           </button>
         </div>
+        <hr />
       </div>
+
       <div className="container">
         <div className="row">
         <div className= "col">
-            <h4>Reservations</h4>
+            <h3 style={{textAlign: 'center'}}>Current Reservations</h3>
+            <div>
+        <ErrorAlert error={reservationsError} />
+      </div>
             <div>
             <ListReservations reservations={reservations} />
             </div>
         </div>
         <div className="col">
-          <h4>
-            Tables
-          </h4>
+          <h3 style={{textAlign: 'center'}}>
+            Table Status
+          </h3>
           <div>
             <DisplayTableReservations />
           </div>
