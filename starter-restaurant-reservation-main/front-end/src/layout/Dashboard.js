@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { listReservations, getAllReservationDates } from "../utils/api";
-import ErrorAlert from "./ErrorAlert";
-import { useHistory } from "react-router-dom";
-import DisplayTableReservations from "./reservationTables/displayTableRes";
+import { useHistory,  } from "react-router";
+import useQuery from "../utils/useQuery";
+import { listReservations } from "../utils/api";
+import ErrorAlert from "../layout/ErrorAlert";
+import { next, today, previous } from "../utils/date-time";
 import ListReservations from "./reservations/ListReservations";
-
-import "./Layout.css";
+import DisplayTableReservations from "./reservationTables/displayTableRes";
 
 /**
  * Defines the dashboard page.
@@ -14,114 +14,71 @@ import "./Layout.css";
  * @returns {JSX.Element}
  */
 function Dashboard({ date }) {
-  const [reservations, setReservations] = useState([]);
-
-  const [occupiedDates, setOccupiedDates] = useState([]);
-
-  const [error, setError] = useState("");
 
   const history = useHistory();
+  const query = useQuery();
+  const [reservations, setReservations] = useState([]);
+  const [reservationsError, setReservationsError] = useState(null); 
+  //sets the date to the date defined in the url
+  date = query.get("date") || date;
 
-  let indexOfCurrentDate = 0;
+  //converts the date from the URL to [day] [month] [date] [year] format
+  let dateConvert = new Date(`${date}T00:00:00`);
+  let displayDate = dateConvert.toDateString();
 
+  //loads the dashboard with the reservation info.
   useEffect(loadDashboard, [date]);
-  useEffect(getOccupiedDates, []);
 
   function loadDashboard() {
     const abortController = new AbortController();
-    setError(null);
+    setReservationsError(null);
     listReservations({ date }, abortController.signal)
       .then(setReservations)
-      .catch(setError);
+      .catch(setReservationsError);
     return () => abortController.abort();
   }
-
-  function getOccupiedDates() {
-    const abortController = new AbortController();
-    setError(null);
-    getAllReservationDates(abortController.signal)
-      .then((data) => {
-        return data.map((date) => date.reservation_date.substring(0, 10));
-      })
-      .then(setOccupiedDates)
-      .catch(setError);
-    return () => abortController.abort();
-  }
-
-  if (occupiedDates[0]) {
-    indexOfCurrentDate = occupiedDates.indexOf(date);
-  }
-
-  function dateDisplay() {
-    let prev = occupiedDates[indexOfCurrentDate - 1];
-    let next = occupiedDates[indexOfCurrentDate + 1];
-
-    if (!date) {
-      next = occupiedDates[indexOfCurrentDate];
-    }
-
-    return (
-      <React.Fragment>
-        <div className="dashboard-buttons">
-          <div className="dashboard-date-select">
-            <button
-              onClick={() => clickHandler("prev", prev)}
-              className="btn dashboard-date-btn"
-            >
-              {`Previous Day`}
-            </button>
-            <button
-              onClick={() => clickHandler("next", next)}
-              className="btn dashboard-date-btn"
-            >
-              {`Next Day`}
-            </button>
-          </div>
-          <button
-            className="btn home-btn"
-            onClick={() => {
-              setReservations([]);
-              history.push(`/dashboard`);
-            }}
-          >
-            Today's Reservations
-          </button>
-        </div>
-      </React.Fragment>
-    );
-  }
-
-  function clickHandler(PON, d) {
-    if (!d) {
-      return;
-    }
-    if (PON === "prev") {
-      history.push(`/dashboard?date=${d}`);
-    } else {
-      history.push(`/dashboard?date=${d}`);
-    }
-  }
-
+  
   return (
     <main>
-      <h2 className="ml-2">Dashboard</h2>
-      {dateDisplay()}
-      <div className="mb-3">
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <h2 className="mb-0">Reservations for today</h2>
+      <div>
+        <ErrorAlert error={reservationsError} />
+      </div>
+      <div className="container-fluid col-12 text-center">
+        <h1 className="center-align">Dashboard</h1>
+          <h4 className="bg-white mb-2">Reservations for {displayDate}</h4>
+        <div>
+          <button className="btn" onClick={() => history.push(`/dashboard?date=${previous(date)}`)}>
+            Previous Day
+          </button>
+          <button className="btn" onClick={() => history.push(`/dashboard/?date=${today()}`)}>
+            Today
+          </button>
+          <button className="btn" onClick={() => history.push(`/dashboard/?date=${next(date)}`)}>
+            Next Day
+          </button>
         </div>
       </div>
-      <ErrorAlert error={error} />
-      {reservations[0] && (
-        <ListReservations
-          data={reservations}
-          load={loadDashboard}
-          setError={setError}
-        />
-      )}
-      <DisplayTableReservations refreshDashboard={loadDashboard} />
+      <div className="container">
+        <div className="row">
+        <div className= "col">
+            <h4>Reservations</h4>
+            <div>
+            <ListReservations reservations={reservations} />
+            </div>
+        </div>
+        <div className="col">
+          <h4>
+            Tables
+          </h4>
+          <div>
+            <DisplayTableReservations />
+          </div>
+        </div>
+        </div>
+      </div>
+      
     </main>
   );
 }
-//{JSON.stringify(reservations)}
+
 export default Dashboard;

@@ -2,12 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { statusChange } from "../../utils/api";
 
-function ListReservations({ data, show = false, load, setError }) {
-  // show is set to default value which is used to hyde the reservations
-  // with a status of "finished", primarily used for the dashboard list.
-  //
-
-  //load is whatever state the needs to be refreshed when cancle is submitted.
+function ListReservations({ reservations, show = false, load, setError }) {
   function cancelReservation(reservationID) {
     const abortController = new AbortController();
 
@@ -18,15 +13,9 @@ function ListReservations({ data, show = false, load, setError }) {
     }
   }
 
-  const list = data.map((reservation) => {
-    if (
-      (reservation.status === "finished" && !show) ||
-      reservation.status === "cancelled"
-    ) {
-      return undefined;
-    }
-
-    return (
+  const list = reservations?.filter((reservation) => reservation.status !== "cancelled")
+    ?.filter((reservation) => reservation.status !== "finished" || show === true)
+    ?.map((reservation) => (
       <div className="card desk-card" key={reservation.reservation_id}>
         <div className="card-body">
           <h5 className="card-title">Reservation: {reservation.first_name}</h5>
@@ -65,8 +54,7 @@ function ListReservations({ data, show = false, load, setError }) {
           </div>
         </div>
       </div>
-    );
-  });
+    ));
 
   return <div className="list-reservation">{list}</div>;
 }

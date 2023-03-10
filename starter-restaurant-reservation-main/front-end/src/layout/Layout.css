@@ -99,9 +99,6 @@ title {
     background-color: #ffa500; /* replace with your desired hover color */
   }
 
-  button.btn:clicked {
-    background-color: #0040ff; /* replace with your desired hover color */
-  }
 
   .dashboard-date-btn {
     background-color: #000;
