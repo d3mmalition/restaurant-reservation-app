@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { statusChange } from "../../utils/api";
 
-function ListReservations({ reservations, show = false, load, setError }) {
+function ListReservations({ data, show = false, load, setError }) {
   function cancelReservation(reservationID) {
     const abortController = new AbortController();
 
@@ -13,7 +13,7 @@ function ListReservations({ reservations, show = false, load, setError }) {
     }
   }
 
-  const list = reservations?.filter((reservation) => reservation.status !== "cancelled")
+  const list = data?.filter((reservation) => reservation.status !== "cancelled")
     ?.filter((reservation) => reservation.status !== "finished" || show === true)
     ?.map((reservation) => (
       <div className="card desk-card" key={reservation.reservation_id}>

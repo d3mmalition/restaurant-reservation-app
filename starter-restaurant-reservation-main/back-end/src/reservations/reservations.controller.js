@@ -1,13 +1,9 @@
-/**
- * List handler for reservation resources
- */
 const formatDateNow = require("../format-date");
 const moment = require("moment");
 const service = require("./reservations.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const hasProperties = require("../errors/hasProperties");
-// as the name of the function sugests here we use a function (hasProperties) to verify that the listed properties
-// are included in the created reservation
+
 
 const hasRequiredProperties = hasProperties(
   "first_name",

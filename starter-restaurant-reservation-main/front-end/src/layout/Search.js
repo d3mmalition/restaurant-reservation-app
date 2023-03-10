@@ -14,22 +14,25 @@ function Search() {
   async function submitHandler(event) {
     event.preventDefault();
     setReservations([]);
+    console.log("reservations", reservations);
     setError("");
   
+    const abortController = new AbortController();
+  
     try {
-      const abortController = new AbortController();
       const reservations = await searchReservationsWithPhone(number, abortController.signal);
       setReservations(reservations);
   
       if (reservations.length === 0) {
         setError({ message: "No reservations found" });
       }
-  
-      return () => abortController.abort();
     } catch (error) {
       setError(error.message);
     }
+  
+    return () => abortController.abort();
   }
+  
   
 
   return (
@@ -55,10 +58,10 @@ function Search() {
       </form>
       <ErrorAlert error={error} />
       {reservations.length === 0 ? (
-  <p>No reservations found with this phone number.</p>
-) : (
-  <ListReservations data={reservations} show={true} />
-)}
+        <p>No reservations found with this phone number.</p>
+      ) : (
+        <ListReservations data={reservations} show={true} />
+      )}
     </div>
   );
 }
