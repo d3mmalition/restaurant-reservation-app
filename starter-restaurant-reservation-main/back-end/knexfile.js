@@ -8,10 +8,10 @@ require('dotenv').config();
 const path = require("path");
 
 const {
-  DATABASE_URL="postgres://ytywpbfn:k4s4pPY9Q78RtxtEEMnIUzKN4xzaD3yc@suleiman.db.elephantsql.com/ytywpbfn",
-  DATABASE_URL_DEVELOPMENT="postgres://ksrwmsjl:iqOR0GgHwE0eXb6yMOBcpgX_viO9BaO7@suleiman.db.elephantsql.com/ksrwmsjl",
-  DATABASE_URL_TEST="postgres://tidssdiu:rkQD5S02Y1r2zsLFfTu5qp-Bgb5Ho81v@suleiman.db.elephantsql.com/tidssdiu",
-  DATABASE_URL_PREVIEW="postgres://stvpbcvz:c796ZmRjE5JwoCiWJnDUKGIxdmXrGu8U@suleiman.db.elephantsql.com/stvpbcvz",
+  DATABASE_URL = "postgres://aperirap:bFRblXzLg9J7yM6NsgieE8NS6_1ebwgu@isilo.db.elephantsql.com/aperirap",
+  DATABASE_URL_DEVELOPMENT = "postgres://jsohxhjb:hIxLiN0jdiQ3XdsprMDxMTTLUa5565Mn@isilo.db.elephantsql.com/jsohxhjb",
+  DATABASE_URL_TEST = "postgres://fzhxzknr:ql9-VDrlb3C0BopwQI6-WZJMA6OJg3u_@isilo.db.elephantsql.com/fzhxzknr",
+  DATABASE_URL_PREVIEW = "postgres://xiorpslq:t2KGSRKzzXvxci4yAk5Da90yHVhFo2gQ@isilo.db.elephantsql.com/xiorpslq",
   DEBUG,
 } = process.env;
 
