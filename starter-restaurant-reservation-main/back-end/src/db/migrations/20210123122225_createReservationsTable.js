@@ -14,3 +14,10 @@ exports.up = function (knex) {
   exports.down = function (knex) {
     return knex.schema.dropTable("reservations");
   };
+  
+  //firstname
+  //lastname
+  //mobileNumber
+  //res_date/
+  //"reservation_time"
+  //number of people in party
