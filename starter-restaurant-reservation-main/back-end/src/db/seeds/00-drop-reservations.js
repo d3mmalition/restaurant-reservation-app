@@ -3,4 +3,3 @@ exports.seed = function (knex) {
       .raw("TRUNCATE TABLE reservations RESTART IDENTITY CASCADE")
       .then(() => knex("reservations").del());
   };
-  
