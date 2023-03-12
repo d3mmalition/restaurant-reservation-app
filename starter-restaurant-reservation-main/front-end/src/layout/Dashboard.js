@@ -66,7 +66,11 @@ function Dashboard({ date }) {
         <ErrorAlert error={reservationsError} />
       </div>
             <div>
-            <ListReservations data={reservations} />
+            <ListReservations
+          data={reservations}
+          load={loadDashboard}
+          setError={setReservationsError}
+        />
             </div>
         </div>
         <div className="col">
